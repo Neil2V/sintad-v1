@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class TipoContribuyenteController {
         return new ResponseEntity(tipoContribuyentes, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody TipoContribuyenteDto tipoContribuyenteDto){
         if(StringUtils.isBlank(tipoContribuyenteDto.getNombre()))
@@ -35,6 +37,7 @@ public class TipoContribuyenteController {
         return new ResponseEntity("Nuevo tipo de contribuyente agregado", HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(
             @RequestBody TipoContribuyenteDto tipoContribuyenteDto, @PathVariable(value = "id") Long id
