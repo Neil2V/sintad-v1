@@ -31,6 +31,8 @@ public class TipoDocumentoController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody TipoDocumentoDto tipoDocumentoDto){
+        if(tipoDocumentoService.existsByCodigo(tipoDocumentoDto.getCodigo()))
+            return new ResponseEntity("Ya existe un tipo documento con ese codigo", HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(tipoDocumentoDto.getCodigo()))
             return new ResponseEntity("El codigo es requerido", HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(tipoDocumentoDto.getNombre()))

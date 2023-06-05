@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TipoDocumentoServiceImpl implements TipoDocumentoService {
@@ -37,5 +38,14 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     @Override
     public TipoDocumento findById(Long id) {
         return tipoDocumentoRepository.findById(id).get();
+    }
+
+    @Override
+    public Optional<TipoDocumento> findByCodigo(String codigo) {
+        return tipoDocumentoRepository.findByCodigo(codigo);
+    }
+
+    public boolean existsByCodigo(String codigo){
+        return tipoDocumentoRepository.existsByCodigo(codigo);
     }
 }

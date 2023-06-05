@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TipoContribuyenteServiceImpl implements TipoContribuyenteService {
@@ -36,5 +37,12 @@ public class TipoContribuyenteServiceImpl implements TipoContribuyenteService {
     @Override
     public TipoContribuyente findById(Long id) {
         return tipoContribuyenteRepository.findById(id).get();
+    }
+
+    public Optional<TipoContribuyente> findByNombre(String nombre){
+        return tipoContribuyenteRepository.findByNombre(nombre);
+    }
+    public boolean existsByNombre(String nombre){
+        return tipoContribuyenteRepository.existsByNombre(nombre);
     }
 }

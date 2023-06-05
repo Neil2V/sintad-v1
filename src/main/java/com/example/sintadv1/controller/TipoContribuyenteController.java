@@ -29,6 +29,8 @@ public class TipoContribuyenteController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody TipoContribuyenteDto tipoContribuyenteDto){
+        if(tipoContribuyenteService.existsByNombre(tipoContribuyenteDto.getNombre()))
+            return new ResponseEntity("Ya existe ese tipo contribuyente", HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(tipoContribuyenteDto.getNombre()))
             return new ResponseEntity("El nombre es requerido", HttpStatus.BAD_REQUEST);
 
