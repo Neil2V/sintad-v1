@@ -2,6 +2,7 @@ package com.example.sintadv1.controller;
 
 import com.example.sintadv1.dto.TipoContribuyenteDto;
 import com.example.sintadv1.model.TipoContribuyente;
+import com.example.sintadv1.model.TipoDocumento;
 import com.example.sintadv1.service.TipoContribuyenteService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,13 @@ public class TipoContribuyenteController {
 
         tipoContribuyenteService.saveTipoContribuyente(tipoContribuyente);
         return new ResponseEntity("TipoContribuyente actualizado", HttpStatus.OK);
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<TipoContribuyente> getById(@PathVariable("id") Long id){
+        if(!tipoContribuyenteService.existsById(id))
+            return new ResponseEntity("El tipo Contribuyente no existe", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity(tipoContribuyenteService.findById(id),HttpStatus.OK);
     }
 }

@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
-@Builder
 public class EntidadDto {
 
     @NotNull

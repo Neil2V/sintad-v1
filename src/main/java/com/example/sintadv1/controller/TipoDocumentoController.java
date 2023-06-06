@@ -63,4 +63,12 @@ public class TipoDocumentoController {
         tipoDocumentoService.saveTipoDocumento(tipoDocumento);
         return new ResponseEntity("TipoDocumento actualizado", HttpStatus.OK);
     }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<TipoDocumento> getById(@PathVariable("id") Long id){
+        if(!tipoDocumentoService.existsById(id))
+            return new ResponseEntity("El tipo Documento no existe", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity(tipoDocumentoService.findById(id),HttpStatus.OK);
+    }
 }

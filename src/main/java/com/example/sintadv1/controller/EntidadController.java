@@ -50,12 +50,15 @@ public class EntidadController {
         if(!tipoDocumentoService.existsById(entidadDto.getId_tipo_documento()))
             return new ResponseEntity("No existe un tipo de documento con el Id: "+entidadDto.getId_tipo_documento(), HttpStatus.NOT_FOUND);
 
+
+
         Entidad entidad = new Entidad(entidadDto.getNro_documento(),
                 entidadDto.getRazon_social(),
                 entidadDto.getNombre_comercial(),
                 entidadDto.getDireccion(),
                 entidadDto.getTelefono(),
                 entidadDto.isEstado());
+
 
         if(entidadDto.getId_tipo_contribuyente()!=null){
             TipoContribuyente tipoContribuyente = tipoContribuyenteService.findById(entidadDto.getId_tipo_contribuyente());
@@ -66,6 +69,7 @@ public class EntidadController {
         entidad.setTipoDocumento(tipoDocumento);
 
         entidadService.saveEntidad(entidad);
+
 
         return new ResponseEntity("Entidad registrada", HttpStatus.CREATED);
     }
@@ -106,5 +110,13 @@ public class EntidadController {
         entidadService.saveEntidad(entidad);
 
         return new ResponseEntity("Entidad actualizada", HttpStatus.OK);
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Entidad> getById(@PathVariable("id") Long id){
+        if(!entidadService.existsById(id))
+            return new ResponseEntity("La entidad no existe", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity(entidadService.findById(id),HttpStatus.OK);
     }
 }
